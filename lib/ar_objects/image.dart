@@ -5,7 +5,7 @@ import 'package:vector_math/vector_math_64.dart' as vector;
 Future addImage(
   ArCoreController controller,
   String assetPath,
-  Map<String, double> position,
+  List<double> position,
 ) async {
   final imageBytes = await rootBundle.load(assetPath);
   final image = ArCoreImage(
@@ -15,8 +15,8 @@ Future addImage(
   );
   final node = ArCoreNode(
     image: image,
-    // position: vector.Vector3(-1.5, 0.5, -3.5),
-    position: vector.Vector3(position['x'], position['y'], position['z']),
+    position: vector.Vector3(position[0], position[1], position[2]),
   );
+
   controller.addArCoreNode(node);
 }
