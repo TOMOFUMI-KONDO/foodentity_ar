@@ -1,5 +1,6 @@
 import 'package:arcore_flutter_plugin/arcore_flutter_plugin.dart';
 import 'package:flutter/material.dart';
+import 'package:foodentity_ar/services/ar/image.dart';
 import 'package:foodentity_ar/widgets/capture_button.dart';
 
 class ArCameraScreen extends StatefulWidget {
@@ -11,6 +12,7 @@ class ArCameraScreen extends StatefulWidget {
 
 class _ArCameraScreenState extends State<ArCameraScreen> {
   ArCoreController _arCoreController;
+  ArNodeCreator _arNodeCreator;
 
   @override
   Widget build(BuildContext context) {
@@ -21,10 +23,10 @@ class _ArCameraScreenState extends State<ArCameraScreen> {
         children: [
           SizedBox(
             height: screenHeight / 2,
-            // child: ArCoreView(onArCoreViewCreated: _onArCoreViewCreated),
-            child: Container(),
+            child: ArCoreView(onArCoreViewCreated: _onArCoreViewCreated),
+            // child: Container(),
           ),
-          CaptureButton(_arCoreController),
+          CaptureButton(_arNodeCreator),
         ],
       ),
     );
@@ -32,6 +34,7 @@ class _ArCameraScreenState extends State<ArCameraScreen> {
 
   void _onArCoreViewCreated(ArCoreController controller) {
     _arCoreController = controller;
+    _arNodeCreator = ArNodeCreator(_arCoreController);
   }
 
   @override
