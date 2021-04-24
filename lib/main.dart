@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart' as DotEnv;
+import 'package:foodentity_ar/consts/colors.dart';
+import 'package:foodentity_ar/consts/fonts.dart';
 import 'package:foodentity_ar/screens/ar_camera_screen.dart';
 import 'package:foodentity_ar/screens/home.dart';
 
@@ -18,6 +20,17 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        primarySwatch: baseColor,
+        textButtonTheme: TextButtonThemeData(
+          style: TextButton.styleFrom(
+            textStyle: TextStyle(color: Colors.white),
+            backgroundColor: mainColor,
+            padding: const EdgeInsets.all(12),
+          ),
+        ),
+        fontFamily: mainFont,
+      ),
       initialRoute: HomeScreen.screen_id,
       routes: {
         HomeScreen.screen_id: (_) => HomeScreen(),

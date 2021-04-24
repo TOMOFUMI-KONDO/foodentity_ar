@@ -15,9 +15,7 @@ Future<RecognizeImageResponse> recognizeImage(String image) async {
 
   if (response.statusCode == 200) {
     final body = jsonDecode(response.body);
-    // return RecognizeImageResponse.fromJson(body);
-    print("body: $body");
-    return RecognizeImageResponse(Food("hum"), [Identity("cochineal")]);
+    return RecognizeImageResponse.fromJson(body);
   } else {
     throw Exception("Failed to post request: ${response.body}");
   }
@@ -27,8 +25,8 @@ class RecognizeImageResponse {
   RecognizeImageResponse(this.food, this.identities);
 
   RecognizeImageResponse.fromJson(Map<String, dynamic> json) {
-    this.food = Food(json["food"]);
-    this.identities = (json["identities"] as List)
+    this.food = Food(json["Food"]);
+    this.identities = (json["Identities"] as List)
         .cast<String>()
         .map((identity) => Identity(identity))
         .toList();
