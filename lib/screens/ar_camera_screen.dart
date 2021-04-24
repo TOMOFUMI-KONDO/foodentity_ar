@@ -2,7 +2,7 @@ import 'package:arcore_flutter_plugin/arcore_flutter_plugin.dart';
 import 'package:flutter/material.dart';
 import 'package:foodentity_ar/models/identity.dart';
 import 'package:foodentity_ar/services/ar/ar_node_manager.dart';
-import 'package:foodentity_ar/widgets/capture_button.dart';
+import 'package:image_picker/image_picker.dart';
 
 class ArCameraScreen extends StatefulWidget {
   static const screen_id = "ar_camera_screen";
@@ -19,40 +19,47 @@ class _ArCameraScreenState extends State<ArCameraScreen> {
   Widget _widget;
 
   @override
+  void initState() {
+    super.initState();
+    pickImage();
+  }
+
+  void pickImage() async {
+    final file = await ImagePicker().getImage(source: ImageSource.camera);
+    final byteData = await file.readAsBytes();
+    setState(() {
+      _widget = Image.memory(byteData);
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
 
-    return RepaintBoundary(
-      key: _globalKey,
-      child: Scaffold(
-        body: SafeArea(
-          child: Column(
-            children: [
-              SizedBox(
-                height: screenHeight / 2,
-                child: RepaintBoundary(
-                  // key: _globalKey,
-                  child: ArCoreView(
-                    onArCoreViewCreated: _onArCoreViewCreated,
-                    enableTapRecognizer: true,
-                    debug: true,
-                  ),
+    return Scaffold(
+      body: SafeArea(
+        child: Column(
+          children: [
+            SizedBox(
+              height: screenHeight / 2,
+              child: RepaintBoundary(
+                // key: _globalKey,
+                child: ArCoreView(
+                  onArCoreViewCreated: _onArCoreViewCreated,
+                  enableTapRecognizer: true,
+                  debug: true,
                 ),
               ),
-              // Expanded(child: IdentityDetail(_displayedIdentity)),
-              Expanded(
-                child: Container(
-                  child: Center(child: _widget ?? Container()),
-                ),
+            ),
+            // Expanded(child: IdentityDetail(_displayedIdentity)),
+            Expanded(
+              child: Container(
+                child: Center(child: _widget ?? Container()),
               ),
-              CaptureButton(
-                (Widget widget) => setState(() => _widget = widget),
-                _globalKey,
-                _arNodeManager,
-              ),
-              const SizedBox(height: 20),
-            ],
-          ),
+            ),
+            // CaptureButton(_arNodeManager),
+            const SizedBox(height: 20),
+          ],
         ),
       ),
     );
