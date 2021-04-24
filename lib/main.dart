@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart' as DotEnv;
 import 'package:foodentity_ar/screens/ar_camera_screen.dart';
 import 'package:foodentity_ar/screens/home.dart';
 
-void main() {
+void main() async {
+  await DotEnv.load(fileName: ".env");
   runApp(MyApp());
 }
 

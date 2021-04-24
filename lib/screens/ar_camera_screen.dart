@@ -1,8 +1,12 @@
+import 'dart:convert';
+import 'dart:typed_data';
+
 import 'package:arcore_flutter_plugin/arcore_flutter_plugin.dart';
 import 'package:flutter/material.dart';
 import 'package:foodentity_ar/models/identity.dart';
+import 'package:foodentity_ar/services/api/recognize_image.dart';
 import 'package:foodentity_ar/services/ar/ar_node_manager.dart';
-import 'package:image_picker/image_picker.dart';
+import 'package:foodentity_ar/widgets/identity_detail.dart';
 
 class ArCameraScreen extends StatefulWidget {
   static const screen_id = "ar_camera_screen";
@@ -12,23 +16,25 @@ class ArCameraScreen extends StatefulWidget {
 }
 
 class _ArCameraScreenState extends State<ArCameraScreen> {
-  final _globalKey = GlobalKey();
   ArCoreController _arCoreController;
   ArNodeManager _arNodeManager;
   Identity _displayedIdentity;
-  Widget _widget;
 
   @override
-  void initState() {
-    super.initState();
-    pickImage();
-  }
+  void didChangeDependencies() {
+    super.didChangeDependencies();
 
-  void pickImage() async {
-    final file = await ImagePicker().getImage(source: ImageSource.camera);
-    final byteData = await file.readAsBytes();
-    setState(() {
-      _widget = Image.memory(byteData);
+    final arguments =
+        ModalRoute.of(context).settings.arguments as ArCameraScreenArguments;
+    final byteData = arguments.byteData;
+
+    final base64Image = base64.encode(byteData);
+    print(base64Image);
+
+    recognizeImage(base64Image).then((result) {
+      for (final identity in result.identities) {
+        _arNodeManager.addImage(identity);
+      }
     });
   }
 
@@ -51,13 +57,7 @@ class _ArCameraScreenState extends State<ArCameraScreen> {
                 ),
               ),
             ),
-            // Expanded(child: IdentityDetail(_displayedIdentity)),
-            Expanded(
-              child: Container(
-                child: Center(child: _widget ?? Container()),
-              ),
-            ),
-            // CaptureButton(_arNodeManager),
+            Expanded(child: IdentityDetail(_displayedIdentity)),
             const SizedBox(height: 20),
           ],
         ),
@@ -83,4 +83,9 @@ class _ArCameraScreenState extends State<ArCameraScreen> {
     _arCoreController?.dispose();
     super.dispose();
   }
+}
+
+class ArCameraScreenArguments {
+  const ArCameraScreenArguments(this.byteData);
+  final Uint8List byteData;
 }
