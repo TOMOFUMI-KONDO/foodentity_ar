@@ -3,6 +3,7 @@ import 'dart:typed_data';
 
 import 'package:arcore_flutter_plugin/arcore_flutter_plugin.dart';
 import 'package:flutter/material.dart';
+import 'package:foodentity_ar/consts/colors.dart';
 import 'package:foodentity_ar/models/identity.dart';
 import 'package:foodentity_ar/services/api/recognize_image.dart';
 import 'package:foodentity_ar/services/ar/ar_node_manager.dart';
@@ -44,22 +45,24 @@ class _ArCameraScreenState extends State<ArCameraScreen> {
 
     return Scaffold(
       body: SafeArea(
-        child: Column(
-          children: [
-            SizedBox(
-              height: screenHeight / 2,
-              child: RepaintBoundary(
-                // key: _globalKey,
-                child: ArCoreView(
-                  onArCoreViewCreated: _onArCoreViewCreated,
-                  enableTapRecognizer: true,
-                  debug: true,
+        child: Container(
+          color: baseColor100,
+          child: Column(
+            children: [
+              SizedBox(
+                height: screenHeight / 2,
+                child: RepaintBoundary(
+                  // key: _globalKey,
+                  child: ArCoreView(
+                    onArCoreViewCreated: _onArCoreViewCreated,
+                    enableTapRecognizer: true,
+                    debug: true,
+                  ),
                 ),
               ),
-            ),
-            Expanded(child: IdentityDetail(_displayedIdentity)),
-            const SizedBox(height: 20),
-          ],
+              Expanded(child: IdentityDetail(_displayedIdentity)),
+            ],
+          ),
         ),
       ),
     );

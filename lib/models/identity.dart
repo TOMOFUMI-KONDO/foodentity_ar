@@ -21,7 +21,7 @@ class Identity {
     },
     "chemical protein": {
       "image": IdentityImage.Powder,
-      "description": "低質で安価な原材料から作られた、人工タンパク質",
+      "description": "低質で安価な原材料から作られた、人工タンパク質。",
       "jpName": "人工タンパク質"
     },
   };

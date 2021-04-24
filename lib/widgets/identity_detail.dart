@@ -9,25 +9,31 @@ class IdentityDetail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: ListTile(
-        leading: _identity != null
-            ? Image.asset("assets/${_identity.image.value}")
-            : null,
-        title: _identity != null
-            ? Text(
-                _identity.jpName,
-                style: const TextStyle(fontSize: 14),
-              )
-            : null,
-        subtitle: Padding(
-          padding: const EdgeInsets.only(top: 12),
-          child: Text(
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        if (_identity != null)
+          Padding(
+            padding: const EdgeInsets.only(bottom: 8.0),
+            child: SizedBox(
+              width: 80,
+              child: Image.asset("assets/${_identity.image.value}"),
+            ),
+          ),
+        ListTile(
+          title: _identity != null
+              ? Text(
+                  _identity.jpName,
+                  style: const TextStyle(fontSize: 24),
+                )
+              : null,
+          subtitle: Text(
             _identity?.description ?? "上の画面に表示される食品の「正体」をタップすると、その詳細が表示されます。",
             style: const TextStyle(fontSize: 20),
           ),
         ),
-      ),
+        if (_identity != null) const SizedBox(height: 50),
+      ],
     );
   }
 }

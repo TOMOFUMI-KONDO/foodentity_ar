@@ -16,17 +16,26 @@ class HomeScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
-              color: baseColorLight,
+              color: baseColor200,
               padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
-              child: Text(
-                'これって何から\nできてるの？',
-                style: TextStyle(
-                  color: mainColorDark,
-                  fontWeight: FontWeight.w900,
-                  fontSize: 52,
-                  height: 1.2,
-                ),
+              child: RichText(
                 textAlign: TextAlign.center,
+                text: TextSpan(
+                  style: TextStyle(
+                    height: 1.2,
+                    fontSize: 52,
+                    fontWeight: FontWeight.w900,
+                    color: mainColorDark,
+                    fontFamily: mainFont,
+                  ),
+                  children: [
+                    TextSpan(text: 'それって何から\nできてるの？\n'),
+                    TextSpan(
+                      text: 'AR',
+                      style: const TextStyle(fontSize: 36, height: 1.5),
+                    ),
+                  ],
+                ),
               ),
             ),
             const SizedBox(height: 100),
@@ -37,7 +46,10 @@ class HomeScreen extends StatelessWidget {
                 child: const Text(
                   '正体を調べる',
                   style: TextStyle(
-                      fontSize: 24, color: Colors.white, fontFamily: mainFont),
+                    fontSize: 24,
+                    color: Colors.white,
+                    fontFamily: mainFont,
+                  ),
                 ),
               ),
             ),
