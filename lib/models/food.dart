@@ -1,3 +1,4 @@
+/// 食品
 class Food {
   const Food(this.name);
 

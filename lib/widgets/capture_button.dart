@@ -1,27 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:foodentity_ar/services/api/recognize_image.dart';
-import 'package:foodentity_ar/services/ar/image.dart';
-import 'package:foodentity_ar/services/consts/enums/image_path.dart';
+import 'package:foodentity_ar/services/ar/ar_node_manager.dart';
 
 class CaptureButton extends StatelessWidget {
-  CaptureButton(this._arNodeCreator);
+  const CaptureButton(this._arNodeManager);
 
-  final ArNodeCreator _arNodeCreator;
+  final ArNodeManager _arNodeManager;
 
   @override
   Widget build(BuildContext context) {
-    return TextButton(
+    return IconButton(
       onPressed: handleTap,
-      child: const Text('Capture!'),
+      icon: const Icon(Icons.camera),
+      iconSize: 48,
+      color: Colors.green,
     );
   }
 
   Future handleTap() async {
+    _arNodeManager.clear();
+
     final result = await recognizeImage("hogehoge");
 
     for (final identity in result.identities) {
-      final imagePath = identityImagePathMap[identity.name].value;
-      _arNodeCreator.addImage(imagePath);
+      _arNodeManager.addImage(identity);
     }
   }
 }

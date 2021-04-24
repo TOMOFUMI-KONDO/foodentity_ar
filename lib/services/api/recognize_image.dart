@@ -2,9 +2,9 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 
+import '../../consts/api_endpoints.dart';
 import '../../models/food.dart';
 import '../../models/identity.dart';
-import '../consts/endpoints.dart';
 
 Future<RecognizeImageResponse> recognizeImage(String image) async {
   final response = await http.post(
