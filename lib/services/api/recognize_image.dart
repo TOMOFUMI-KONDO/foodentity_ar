@@ -14,8 +14,10 @@ Future<RecognizeImageResponse> recognizeImage(String image) async {
   );
 
   if (response.statusCode == 200) {
-    final body = jsonDecode(response.body)["body"];
-    return RecognizeImageResponse.fromJson(body);
+    final body = jsonDecode(response.body);
+    // return RecognizeImageResponse.fromJson(body);
+    print("body: $body");
+    return RecognizeImageResponse(Food("hum"), [Identity("cochineal")]);
   } else {
     throw Exception("Failed to post request: ${response.body}");
   }

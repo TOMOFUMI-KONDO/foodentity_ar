@@ -1,4 +1,5 @@
 final imageRecognitionEndpoint = Uri.https(
-  "h92g12b92f.execute-api.ap-northeast-1.amazonaws.com",
-  "dev/image",
+  // "owyjrafsy3.execute-api.ap-northeast-1.amazonaws.com",
+  "68o77bfbek.execute-api.ap-northeast-1.amazonaws.com",
+  "/Stage/image",
 );
