@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:foodentity_ar/consts/colors.dart';
 import 'package:foodentity_ar/consts/enums/image_path.dart';
 import 'package:foodentity_ar/models/identity.dart';
 
@@ -13,10 +14,11 @@ class IdentityDetail extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         if (_identity != null)
-          Padding(
-            padding: const EdgeInsets.only(bottom: 8.0),
-            child: SizedBox(
-              width: 80,
+          CircleAvatar(
+            radius: 50,
+            backgroundColor: mainColor100,
+            child: Padding(
+              padding: const EdgeInsets.all(10),
               child: Image.asset("assets/${_identity.image.value}"),
             ),
           ),
@@ -24,7 +26,13 @@ class IdentityDetail extends StatelessWidget {
           title: _identity != null
               ? Text(
                   _identity.jpName,
-                  style: const TextStyle(fontSize: 24),
+                  style: const TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                    decoration: TextDecoration.underline,
+                    decorationThickness: 2,
+                    decorationColor: mainColor,
+                  ),
                 )
               : null,
           subtitle: Text(

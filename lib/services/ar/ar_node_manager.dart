@@ -38,6 +38,7 @@ class ArNodeManager {
         -0.5 - (count / columns).floor() * 0.5,
         -3.5,
       ),
+      rotation: vector.Vector4(0, 0, 0, 0),
     );
 
     _arCoreController.addArCoreNode(node);
